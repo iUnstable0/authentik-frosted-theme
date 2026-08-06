@@ -39,6 +39,7 @@ html[data-theme="dark"]:not(:has(ak-interface-admin)) {
 	--iu-border-focus: rgba(103, 170, 248, 0.58);
 	--iu-radius-card: 22px;
 	--iu-radius-control: 11px;
+	--iu-brand-label: none;
 
 	/*
      * FONT TEST CONTROLS
@@ -503,7 +504,7 @@ html[data-theme="dark"]:not(:has(ak-interface-admin)) {
 			format("woff2");
 	}
 	/* =========================================================
-   iunstable0.com — Authentik 2026.5 unified theme v23 — settings consistency and denial-page rebuild
+   Authentik 2026.5 unified theme v23 — settings consistency and denial-page rebuild
    Complete replacement stylesheet. Do not append to old CSS.
    ========================================================= */
 
@@ -816,7 +817,7 @@ html[data-theme="dark"]:not(:has(ak-interface-admin)) {
 
 	:host(ak-flow-executor) .pf-c-login__main-header.pf-c-brand::after,
 	.pf-c-login__main-header.pf-c-brand::after {
-		content: "iunstable0.com";
+		content: var(--iu-brand-label, none);
 
 		color: rgba(226, 235, 247, 0.82);
 
@@ -9180,7 +9181,7 @@ html[data-theme="dark"]:not(:has(ak-interface-admin)) {
 	}
 
 	body:has(#ak-back-home) .pf-c-login__main-header.pf-c-brand::after {
-		content: "iunstable0.com";
+		content: var(--iu-brand-label, none);
 
 		color: rgba(211, 225, 243, 0.76) !important;
 

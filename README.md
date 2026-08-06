@@ -1,17 +1,33 @@
-# authentik-frosted-theme
+# Authentik Frosted Theme
 
-Authentik Frosted Glass Theme
+A frosted-glass custom CSS theme for [authentik](https://goauthentik.io/).
 
-Scroll all the way down for preview pics
+## Installation
 
-Please open issues if you find any visual bugs!
+1. Download [`theme.css`](./theme.css) and copy its entire contents.
+2. In the authentik Admin interface, go to **System → Brands**.
+3. Edit **authentik Default** or the Brand assigned to your domain.
+4. Under **Branding settings**, replace the contents of **Custom CSS** with the downloaded stylesheet, then save the Brand.
+5. Refresh the page. If an older version is still visible, perform a hard refresh or clear the browser cache.
 
-Download theme.css, copy content and paste into 
-Admin Dashboard -> System -> Brands -> Authentik Default OR create a new brand under your domain -> Branding settings -> Custom CSS field
+> [!NOTE]
+> The theme was tested with authentik 2026.5.6. If you find a visual bug with another version or flow configuration, please [open an issue](https://github.com/iUnstable0/authentik-frosted-theme/issues).
 
-if you also want the earth background shown in the demo pics you can download flow.jpg, upload via Admin Interface -> Customization -> Files, and then set it as your default flow background in Brand settings
+## Optional customization
 
-then go to your brand, scroll down to Atrributes and paste this:
+### Use the demo background
+
+To use the Earth image shown in the screenshots:
+
+1. Download [`flow.jpg`](./flow.jpg).
+2. In the Admin interface, go to **Customization → Files** and upload it.
+3. Edit your Brand and select the uploaded image as its default flow background.
+
+### Match the interface shown in the screenshots
+
+The following Brand attributes reproduce the dark background, three-column layout, and navigation options used for the screenshots. They are optional and are not required for the login theme.
+
+Add them under **System → Brands → your Brand → Attributes**:
 
 ```yaml
 settings:
@@ -35,116 +51,28 @@ settings:
     notificationDrawer: false
 ```
 
-Then, in Admin Interface -> Flow & Stages -> Flows -> `default-authentication-flow` -> EDIT BUTTON -> Appearance settings -> Layout -> Choose "Stacked"
+### Add text beside the Brand logo
 
-After that go to **Flows and Stages → Stages**.
+The theme does not add a label by default. To display a domain or company name beside the logo, find this line in [`theme.css`](./theme.css):
 
-Open **Password Stages**.
-
-Edit the Password stage used by the authentication flow, commonly named something like:
-
-```text
-default-authentication-password
+```css
+--iu-brand-label: none;
 ```
 
-Configure the required password backends, normally at least:
+Replace `none` with a quoted label:
 
-```text
-User database + standard password
+```css
+--iu-brand-label: "example.com";
 ```
 
-Enable **Allow show password**
+## Preview
 
-Save the stage.
+<img width="2966" height="1824" alt="Frosted authentik login screen" src="https://github.com/user-attachments/assets/a960040f-3d8c-4e75-b4c4-de0848ab8721" />
 
-Open **Flows and Stages → Stages**.
+<img width="2966" height="1824" alt="Frosted authentik user interface" src="https://github.com/user-attachments/assets/292d8c0f-6955-4ba7-8301-f7900ddcb8ac" />
 
-Open **Identification Stages**.
+<img width="1483" height="912" alt="Frosted authentik dashboard" src="https://github.com/user-attachments/assets/020dc1e7-91fd-4cab-99ba-af4f89c6b988" />
 
-Edit the Identification stage used at the beginning of the authentication flow, commonly:
+<img width="1483" height="912" alt="Frosted authentik applications view" src="https://github.com/user-attachments/assets/d2b07c31-5b5f-4f65-81b6-b94f580c7307" />
 
-```text
-default-authentication-identification
-```
-
-Set **User fields** to:
-
-```text
-Username
-Email
-```
-
-Set **Password stage** to the Password stage configured in the previous section (dedefault is `default-authentication-password` unless you changed/customized it)
-
-Enable:
-
-```text
-Enable remember me on this device
-```
-
-Then under Passkey settings on the same page, set **WebAuthn Authenticator Validation stage** to a validation stage that allows WebAuthn devices (default should be `passkey-autofill-validation`)
-
-Save the stage.
-
-Open **Flows and Stages → Flows**.
-
-Open (Click on it, not EDIT) the authentication flow used by the Brand (commonly `default-authentication-flow`)
-
-Open **Stage Bindings**.
-
-Keep the Identification stage as the first normal authentication step.
-
-Remove or disable the separately bound Password stage.
-
-Keep any required Authenticator Validation/MFA stage after identification.
-
-Keep the User Login stage as the final stage.
-
-Open **Flows and Stages → Stages**.
-
-Open **Authenticator Validation Stages**.
-
-Edit an existing validation stage or create a dedicated one.
-
-Ensure **Device classes** includes:
-
-```text
-WebAuthn
-```
-
-use
-
-```text
-WebAuthn user verification: Required
-```
-
-Save the stage.
-
-Return to the Identification stage and select this stage under:
-
-```text
-WebAuthn Authenticator Validation stage
-```
-
-Edit the WebAuthn/FIDO2 authenticator setup stage and configure:
-
-```text
-Resident key requirement: Preferred or Required
-User verification: Required
-Authenticator attachment: Unset / no restriction
-```
-
-Tested on Authentik version 2026.5.6
-
-
-Theme Preview:
-
-<img width="2966" height="1824" alt="brave_H0tyn4BaHI" src="https://github.com/user-attachments/assets/a960040f-3d8c-4e75-b4c4-de0848ab8721" />
-
-<img width="2966" height="1824" alt="brave_oodQBL4ufc" src="https://github.com/user-attachments/assets/292d8c0f-6955-4ba7-8301-f7900ddcb8ac" />
-
-<img width="1483" height="912" alt="jk2Pbh3YPu" src="https://github.com/user-attachments/assets/020dc1e7-91fd-4cab-99ba-af4f89c6b988" />
-
-<img width="1483" height="912" alt="DXOXsdSNEd" src="https://github.com/user-attachments/assets/d2b07c31-5b5f-4f65-81b6-b94f580c7307" />
-
-<img width="1483" height="912" alt="brave_F0PP5Ggwpe" src="https://github.com/user-attachments/assets/2ea19eb6-4132-4684-bad2-a42ae1240dba" />
+<img width="1483" height="912" alt="Frosted authentik settings view" src="https://github.com/user-attachments/assets/2ea19eb6-4132-4684-bad2-a42ae1240dba" />
